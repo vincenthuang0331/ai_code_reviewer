@@ -4,14 +4,14 @@
 
 ## ✨ 功能特性
 
-- 🔍 從 GitLab API 自動獲取 MR 變更內容
-- 🤖 支援多種 LLM 模型（OpenAI GPT、Claude、Gemini 等）
-- 📝 自動產生繁體中文審查報告
-- 💬 自動發布審查結果至 MR 評論
-- 🎯 支援自訂檔案過濾規則（Regex）
-- 📦 批次處理大型 MR（自動分批審查）
-- 🐳 Docker 容器化部署
-- 🔧 彈性環境變數配置
+- 從 GitLab API 自動獲取 MR 變更內容
+- 支援多種 LLM 模型（OpenAI GPT、Claude、Gemini 等）
+- 自動產生繁體中文審查報告
+- 自動發布審查結果至 MR 評論
+- 支援自訂檔案過濾規則（Regex）
+- 批次處理大型 MR（自動分批審查）
+- Docker 容器化部署
+- 彈性環境變數配置
 
 ## 🏗️ 專案結構
 
@@ -250,4 +250,5 @@ MAX_BATCH_FILES=8       # 單批次最大檔案數
 - 確認 `POST_COMMENT=true`
 - 檢查 Token 是否有 `api` 權限
 - 驗證 MR 狀態是否允許評論
+
 
