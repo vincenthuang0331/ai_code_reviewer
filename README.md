@@ -16,7 +16,7 @@
 ## 🏗️ 專案結構
 
 ```
-gitlab-mr-reviewer/
+ai_code_reviewer/
 ├── review_mr.py          # 主程式入口
 ├── config.py             # 環境變數與配置管理
 ├── gitlab_client.py      # GitLab API 客戶端
@@ -72,7 +72,7 @@ python review_mr.py
 
 ```bash
 # 建立映像檔
-docker build -t gitlab-mr-reviewer .
+docker build -t ai_code_reviewer .
 
 # 執行容器
 docker run --rm \
@@ -250,6 +250,7 @@ MAX_BATCH_FILES=8       # 單批次最大檔案數
 - 確認 `POST_COMMENT=true`
 - 檢查 Token 是否有 `api` 權限
 - 驗證 MR 狀態是否允許評論
+
 
 
 
