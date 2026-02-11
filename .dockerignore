@@ -4,3 +4,4 @@ README.md
 *.pyc
 __pycache__
 .env
+.vscode
