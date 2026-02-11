@@ -4,6 +4,7 @@ import sys
 
 from llm.base import LLMClient
 from llm.openai_client import OpenAIClient
+from llm.claude_client import ClaudeClient
 
 
 def get_llm_client(model: str, api_key: str) -> LLMClient:
@@ -35,9 +36,13 @@ def get_llm_client(model: str, api_key: str) -> LLMClient:
             sys.exit(1)
         return OpenAIClient(api_key=api_key, model=model)
     
+    elif provider == "claude":
+        if not api_key:
+            print("❌ 缺少 Claude API 金鑰")
+            sys.exit(1)
+        return ClaudeClient(api_key=api_key, model=model)
+    
     # 未來可以擴展其他 LLM 提供商
-    # elif provider == "claude":
-    #     return ClaudeClient(api_key=api_key, model=model)
     # elif provider == "gemini":
     #     return GeminiClient(api_key=api_key, model=model)
     

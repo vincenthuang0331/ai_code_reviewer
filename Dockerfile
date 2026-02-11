@@ -2,10 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install --no-cache-dir \
-    openai \
-    requests \
-    python-gitlab
+RUN pip install --no-cache-dir requests
 
 COPY config.py .
 COPY gitlab_client.py .

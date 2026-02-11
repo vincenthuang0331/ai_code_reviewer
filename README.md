@@ -25,7 +25,8 @@ ai_code_reviewer/
 ├── llm/                  # LLM 客戶端模組
 │   ├── __init__.py       # LLM 工廠函式
 │   ├── base.py           # 抽象基礎類別
-│   └── openai_client.py  # OpenAI 實作
+│   ├── openai_client.py  # OpenAI 實作
+│   └── claude_client.py  # Claude 實作
 ├── Dockerfile            # Docker 映像檔定義
 └── README.md             # 說明文件
 ```
@@ -184,9 +185,11 @@ foreach (int x in arr1)
 - `gpt-4-turbo` - 平衡版本
 - `o1-preview` - 推理模型
 
-### Claude (即將支援)
-- `claude-3-opus`
-- `claude-3-sonnet`
+### Claude (Anthropic)
+- `claude-3-5-sonnet-20241022` - 最新版 Sonnet（推薦）
+- `claude-3-opus-20240229` - 最強大的模型
+- `claude-3-sonnet-20240229` - 平衡性能與成本
+- `claude-3-haiku-20240307` - 快速且經濟
 
 ### Gemini (即將支援)
 - `gemini-pro`
@@ -236,12 +239,16 @@ MAX_BATCH_FILES=8       # 單批次最大檔案數
 - 驗證 `CI_MERGE_REQUEST_IID` 是否存在
 
 ### 問題 2: LLM API 錯誤
-**症狀**: `❌ OpenAI API 失敗 (HTTP 401)`
+**症狀**: `❌ OpenAI API 失敗 (HTTP 401)` 或 `❌ Claude API 失敗 (HTTP 401)`
 
 **解決方案**:
 - 確認 `AI_ACCESS_KEY` 正確
+  - OpenAI: `sk-proj-...` 或 `sk-...`
+  - Claude: `sk-ant-...`
 - 檢查 API 配額是否足夠
 - 驗證模型名稱拼寫正確
+  - OpenAI 範例: `gpt-4o-mini`, `gpt-4o`
+  - Claude 範例: `claude-3-5-sonnet-20241022`, `claude-3-opus-20240229`
 
 ### 問題 3: 無法發布評論
 **症狀**: `⚠️ 無法送出 MR 評論`
