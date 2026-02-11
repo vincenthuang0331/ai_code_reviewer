@@ -1,4 +1,4 @@
-# GitLab MR Reviewer
+# AI Reviewer
 
 基於 LLM 的 GitLab Merge Request 自動審查工具，支援多種 AI 模型進行程式碼審查。
 
@@ -250,3 +250,4 @@ MAX_BATCH_FILES=8       # 單批次最大檔案數
 - 確認 `POST_COMMENT=true`
 - 檢查 Token 是否有 `api` 權限
 - 驗證 MR 狀態是否允許評論
+
