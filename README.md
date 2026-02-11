@@ -94,7 +94,7 @@ docker run --rm \
 ai-code-review:
   stage: review
   image:
-    name: your-registry/gitlab-mr-reviewer:latest
+    name: ghcr.io/vincenthuang0331/ai_code_reviewer:latest
     entrypoint: [""]
   script:
     - python /app/review_mr.py
@@ -250,6 +250,7 @@ MAX_BATCH_FILES=8       # 單批次最大檔案數
 - 確認 `POST_COMMENT=true`
 - 檢查 Token 是否有 `api` 權限
 - 驗證 MR 狀態是否允許評論
+
 
 
 
