@@ -57,7 +57,7 @@ def format_review_output(all_issues: list, project_path: str, source_branch: str
         
         # 詳細資訊：完整問題和建議
         impact_icon = {'高': '🔴', '中': '🟡', '低': '⚪'}.get(impact, '🔵')
-        detail_section = f"""### {impact_icon} 問題 #{idx} - {file_path} ({category}/{impact})
+        detail_section = f"""### {impact_icon} 問題 {idx} - {file_path} ({category}/{impact})
 **位置:** {line_range if line_range else '未指定'}
 
 **問題描述:**  
