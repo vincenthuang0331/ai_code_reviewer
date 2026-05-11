@@ -52,13 +52,14 @@ def get_provider_from_model(model: str) -> str:
         return "openai"
 
 
-def validate_config():
+def validate_config(skip_ai_key: bool = False):
     """驗證必要的環境變數"""
     mandatory = {
         "PROJECT_ID": PROJECT_ID,
         "GITLAB_TOKEN": GITLAB_TOKEN,
-        "AI_ACCESS_KEY": AI_ACCESS_KEY,
     }
+    if not skip_ai_key:
+        mandatory["AI_ACCESS_KEY"] = AI_ACCESS_KEY
 
     missing = [name for name, value in mandatory.items() if not value]
     if missing:

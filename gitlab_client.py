@@ -62,16 +62,19 @@ def get_mr_diff():
             "diff": diff_text
         })
 
+    author = data.get("author", {})
     return {
         "title": data.get("title", ""),
         "description": data.get("description", ""),
         "source_branch": data.get("source_branch", "HEAD"),
         "project_path": data.get("references", {}).get("full", "").split("!")[0] if data.get("references") else "",
         "files": matched_files,
+        "requester_username": author.get("username", ""),
+        "requester_id": author.get("id"),
     }
 
 
-def post_comment(review_text: str):
+def post_comment(review_text: str, requester_username: str = ""):
     """將審查結果發佈為 MR 評論"""
     if not POST_COMMENT:
         print("⚠️ POST_COMMENT=false，僅在終端輸出結果。")
@@ -83,9 +86,29 @@ def post_comment(review_text: str):
         "PRIVATE-TOKEN": GITLAB_TOKEN,
         "Content-Type": "application/json",
     }
-    payload = {"body": f"## 🤖 AI Code Review\n\n{review_text}"}
+    mention = f"@{requester_username} " if requester_username else ""
+    payload = {"body": f"## 🤖 AI Code Review\n\n{mention}{review_text}"}
     resp = requests.post(comment_url, headers=headers, json=payload, timeout=60)
     if resp.status_code in (200, 201):
         print("✅ 已將審查結果留言至 MR。")
     else:
         print(f"⚠️ 無法送出 MR 評論 ({resp.status_code}): {resp.text}")
+
+
+def reassign_to_requester(requester_id: int):
+    """將 MR assignee 改回 requester"""
+    if not POST_COMMENT:
+        print("⚠️ POST_COMMENT=false，跳過 assignee 更新。")
+        return
+
+    encoded_project = quote(str(PROJECT_ID), safe="")
+    mr_url = f"{SERVER_URL}/api/v4/projects/{encoded_project}/merge_requests/{MR_IID}"
+    headers = {
+        "PRIVATE-TOKEN": GITLAB_TOKEN,
+        "Content-Type": "application/json",
+    }
+    resp = requests.put(mr_url, headers=headers, json={"assignee_id": requester_id}, timeout=60)
+    if resp.status_code in (200, 201):
+        print("✅ 已將 assignee 改回 requester。")
+    else:
+        print(f"⚠️ 無法更新 assignee ({resp.status_code}): {resp.text}")
